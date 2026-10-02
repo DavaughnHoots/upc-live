@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "updated": "2026-10-02",
+  "service_times": [
+    {
+      "label": "Sunday Worship",
+      "when": "Sundays at 11:00 am",
+      "where": "In the sanctuary and livestreamed on YouTube",
+      "link": {
+        "text": "Watch live",
+        "url": "https://www.youtube.com/channel/UCTXwZupdo_06Bxg3suI61ug/live"
+      }
+    },
+    {
+      "label": "Sunday School",
+      "when": "Sundays at 10:00 am",
+      "where": "Elementary, junior and senior high, in the rooms by the Church Office"
+    },
+    {
+      "label": "Contemporary Worship",
+      "when": "Thursdays at 7:30 pm",
+      "where": "On YouTube",
+      "link": {
+        "text": "Watch live",
+        "url": "https://www.youtube.com/channel/UCTXwZupdo_06Bxg3suI61ug/live"
+      }
+    },
+    {
+      "label": "Daily Devotions & Book Club",
+      "when": "Monday to Friday, 6:00 to 6:15 am",
+      "where": "On Zoom",
+      "link": {
+        "text": "Join on Zoom",
+        "url": "https://us02web.zoom.us/j/89520606256?pwd=RFg3MHBsTSs4Q2JJaC9LMTZlaUxFdz09"
+      }
+    }
+  ],
+  "this_week": {
+    "date": "2026-10-04",
+    "title": "World Communion Sunday",
+    "scripture": [],
+    "bulletin_url": null,
+    "announcements": []
+  },
+  "events": [
+    {
+      "title": "Annual Fall Flea Market",
+      "date": "2026-10-03",
+      "time": "9:00 am to 3:00 pm",
+      "where": "UPC front lawn",
+      "details": "Space rentals $25 and $30. Proceeds support the Crawford-Walton Memorial Fund. For information call 732-742-8762 or 908-756-2666.",
+      "flyer": "https://images.squarespace-cdn.com/content/v1/6964669cbfcd5c656b146053/1c3b017b-d741-416c-81d2-4e56706b8f0a/Flea+Market+Flyer+2026F+Eng.png"
+    },
+    {
+      "title": "World Communion Sunday",
+      "date": "2026-10-04",
+      "time": "11:00 am",
+      "where": "Sanctuary and livestream",
+      "details": "Join Christians around the world at the Lord's Table."
+    },
+    {
+      "title": "Blessing of the Animals",
+      "date": "2026-10-17",
+      "time": "11:00 am",
+      "where": "UPC front lawn",
+      "details": "Bring your pets. Animals must be caged or leashed."
+    },
+    {
+      "title": "Reformation Sunday",
+      "date": "2026-10-25",
+      "time": "11:00 am",
+      "where": "Sanctuary and livestream"
+    },
+    {
+      "title": "Daylight Saving Time ends",
+      "date": "2026-11-01",
+      "details": "Turn your clocks back one hour Saturday night. All Saints Day and Communion Sunday."
+    }
+  ],
+  "newsletters": [
+    {
+      "label": "October 2026",
+      "url": "newsletters/2026-10-News.pdf"
+    },
+    {
+      "label": "September 2026",
+      "url": "https://www.upcplainfield.com/s/2026-09-News.pdf"
+    },
+    {
+      "label": "August 2026",
+      "note": "None published"
+    },
+    {
+      "label": "July 2026",
+      "url": "https://www.upcplainfield.com/s/2026-07-News.pdf"
+    },
+    {
+      "label": "June 2026",
+      "url": "https://www.upcplainfield.com/s/2026-06-News.pdf"
+    },
+    {
+      "label": "May 2026",
+      "url": "https://www.upcplainfield.com/s/2026-05-News.pdf"
+    },
+    {
+      "label": "April 2026",
+      "url": "https://www.upcplainfield.com/s/2026-04-News-2h5d.pdf"
+    },
+    {
+      "label": "March 2026",
+      "url": "https://www.upcplainfield.com/s/2026-03-News.pdf"
+    },
+    {
+      "label": "February 2026",
+      "url": "https://www.upcplainfield.com/s/2026-02-News-7yab.pdf"
+    },
+    {
+      "label": "January 2026",
+      "url": "https://www.upcplainfield.com/s/2026-01-News.pdf"
+    }
+  ]
+}
