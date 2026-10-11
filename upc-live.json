@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-02",
+  "updated": "2026-10-11",
   "service_times": [
     {
       "label": "Sunday Worship",
@@ -36,28 +36,26 @@
     }
   ],
   "this_week": {
-    "date": "2026-10-04",
-    "title": "World Communion Sunday",
-    "scripture": [],
-    "bulletin_url": null,
-    "announcements": []
+    "date": "2026-10-11",
+    "title": "Youth Sunday",
+    "scripture": [
+      "Galatians 6:7-10"
+    ],
+    "announcements": [
+      {
+        "text": "The Blessing of the Animals service is scheduled for Saturday, October 17 at 11:00 am. For additional information, see the church’s Facebook page, website, or the October newsletter.",
+        "date": "2026-10-17",
+        "expires": "2026-10-17"
+      },
+      {
+        "text": "On Saturday, December 5, 2026, at 11:00 am the 2026 Youth Advent Workshops begin. There are ten spots for youth ages 6-16.",
+        "date": "2026-12-05",
+        "expires": "2026-12-05"
+      }
+    ],
+    "bulletin_url": null
   },
   "events": [
-    {
-      "title": "Annual Fall Flea Market",
-      "date": "2026-10-03",
-      "time": "9:00 am to 3:00 pm",
-      "where": "UPC front lawn",
-      "details": "Space rentals $25 and $30. Proceeds support the Crawford-Walton Memorial Fund. For information call 732-742-8762 or 908-756-2666.",
-      "flyer": "https://images.squarespace-cdn.com/content/v1/6964669cbfcd5c656b146053/1c3b017b-d741-416c-81d2-4e56706b8f0a/Flea+Market+Flyer+2026F+Eng.png"
-    },
-    {
-      "title": "World Communion Sunday",
-      "date": "2026-10-04",
-      "time": "11:00 am",
-      "where": "Sanctuary and livestream",
-      "details": "Join Christians around the world at the Lord's Table."
-    },
     {
       "title": "Blessing of the Animals",
       "date": "2026-10-17",
