@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-11",
+  "updated": "2026-10-18",
   "service_times": [
     {
       "label": "Sunday Worship",
@@ -36,19 +36,19 @@
     }
   ],
   "this_week": {
-    "date": "2026-10-11",
-    "title": "Youth Sunday",
+    "date": "2026-10-18",
+    "title": null,
     "scripture": [
-      "Galatians 6:7-10"
+      "Isaiah 43:1-2",
+      "Philippians 3:12-14"
     ],
     "announcements": [
       {
-        "text": "The Blessing of the Animals service is scheduled for Saturday, October 17 at 11:00 am. For additional information, see the church’s Facebook page, website, or the October newsletter.",
-        "date": "2026-10-17",
-        "expires": "2026-10-17"
+        "text": "Join the UPC family in daily Bible reading on the church Facebook page.",
+        "expires": "2026-10-24"
       },
       {
-        "text": "On Saturday, December 5, 2026, at 11:00 am the 2026 Youth Advent Workshops begin. There are ten spots for youth ages 6-16.",
+        "text": "The 2026 Youth Advent Workshops begin on Saturday, December 5, 2026, from 11:00 AM to 1:00 PM. We will share additional details in the coming weeks.",
         "date": "2026-12-05",
         "expires": "2026-12-05"
       }
@@ -56,14 +56,6 @@
     "bulletin_url": null
   },
   "events": [
-    {
-      "title": "Blessing of the Animals",
-      "date": "2026-10-17",
-      "time": "11:00 am",
-      "where": "UPC front lawn",
-      "details": "Bring your pets. Animals must be caged or leashed.",
-      "flyer": "flyers/2026-10-17-Blessing-of-the-Animals.jpg"
-    },
     {
       "title": "Reformation Sunday",
       "date": "2026-10-25",
