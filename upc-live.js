@@ -34,7 +34,13 @@
     var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || "");
     return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null;
   }
-  function today() { var n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); }
+  function today() {
+    // window.__upcToday ("YYYY-MM-DD") lets the local preview page test other
+    // dates; the live Squarespace page never sets it.
+    var t = parseDate(window.__upcToday);
+    if (t) return t;
+    var n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate());
+  }
   function upcomingSunday() { var t = today(); t.setDate(t.getDate() + (7 - t.getDay()) % 7); return t; }
   function sameDay(a, b) { return a && b && a.getTime() === b.getTime(); }
   function longDate(d) { return MONTHS[d.getMonth()] + " " + d.getDate(); }
@@ -114,6 +120,18 @@
     if (sundayTimes && sundayTimes.link) buttons.appendChild(link("Watch the 11:00 am service live", sundayTimes.link.url, "upc-btn"));
     if (matches && tw.bulletin_url) buttons.appendChild(link("This week's bulletin", tw.bulletin_url, "upc-btn"));
     if (buttons.childNodes.length) wrap.appendChild(buttons);
+
+    // Recording of the most recent Sunday service, shown from that day through
+    // the following week (8 days), then it drops off until the next one is set.
+    var ls = data.last_service;
+    var lsDate = ls && parseDate(ls.date);
+    var lsUrl = ls && /^https:\/\/(www\.)?youtube\.com\/watch\?v=[\w-]{11}$/.test(ls.video_url || "") ? ls.video_url : null;
+    var lsAge = lsDate ? Math.round((today() - lsDate) / 864e5) : -1;
+    if (lsUrl && lsAge >= 0 && lsAge <= 7) {
+      wrap.appendChild(el("p", "upc-label", lsAge === 0 ? "Today's service" : "Last Sunday"));
+      wrap.appendChild(el("p", null, DAYS[lsDate.getDay()] + ", " + longDate(lsDate) + (ls.title ? " · " + ls.title : "")));
+      wrap.appendChild(link("Watch the recording", lsUrl, "upc-btn"));
+    }
 
     // Last Sunday's bulletin keeps showing its announcements through the week;
     // each item's own expiry decides when it goes. A bulletin dated for a later

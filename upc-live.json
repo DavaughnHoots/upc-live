@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-18",
+  "updated": "2026-10-25",
   "service_times": [
     {
       "label": "Sunday Worship",
@@ -36,19 +36,19 @@
     }
   ],
   "this_week": {
-    "date": "2026-10-18",
-    "title": null,
+    "date": "2026-10-25",
+    "title": "Pastor Appreciation Sunday",
     "scripture": [
-      "Isaiah 43:1-2",
-      "Philippians 3:12-14"
+      "Matthew 6:25-34",
+      "Psalm 118:24"
     ],
     "announcements": [
       {
-        "text": "Join the UPC family in daily Bible reading on the church Facebook page.",
-        "expires": "2026-10-24"
+        "text": "Join the UPC Family for daily Bible reading and reflections on the church Facebook page.",
+        "expires": "2026-10-31"
       },
       {
-        "text": "The 2026 Youth Advent Workshops begin on Saturday, December 5, 2026, from 11:00 AM to 1:00 PM. We will share additional details in the coming weeks.",
+        "text": "The 2026 Youth Advent workshops begin Saturday, December 5, 2026, at 11:00 AM in the Hansen Room.",
         "date": "2026-12-05",
         "expires": "2026-12-05"
       }
@@ -109,5 +109,10 @@
       "label": "January 2026",
       "url": "https://www.upcplainfield.com/s/2026-01-News.pdf"
     }
-  ]
+  ],
+  "last_service": {
+    "date": "2026-10-25",
+    "title": "Pastor Appreciation Sunday",
+    "video_url": "https://www.youtube.com/watch?v=1XbxIqZ75lQ"
+  }
 }
