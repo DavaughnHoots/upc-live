@@ -77,7 +77,7 @@
   // ------------------------------------------------------------ decrypt
   function decrypt(blob, password) {
     var subtle = window.crypto && window.crypto.subtle;
-    if (!subtle) return Promise.reject(new Error("This browser can't open the dashboard. Try Chrome or Safari."));
+    if (!subtle || !window.TextEncoder || !window.TextDecoder) return Promise.reject(new Error("This browser can't open the dashboard. Try Chrome or Safari."));
     return subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"])
       .then(function (base) {
         return subtle.deriveKey({name: "PBKDF2", hash: "SHA-256", salt: b64(blob.salt), iterations: blob.iter},
@@ -185,8 +185,14 @@
       err.textContent = "";
       btn.textContent = "Opening...";
       btn.disabled = true;
-      decrypt(blob, inp.value).then(function (data) { render(box, data); })
-        .catch(function (e) {
+      Promise.resolve().then(function () { return decrypt(blob, inp.value); })
+        .then(function (data) {
+          try { render(box, data); }
+          catch (e) {
+            if (window.console) console.warn("upc-dash: render", e);
+            showMessage(box, "The password worked, but the dashboard data has a problem. Please tell Davaughn.");
+          }
+        }, function (e) {
           btn.textContent = "Open dashboard";
           btn.disabled = false;
           err.textContent = (e && /browser/.test(e.message)) ? e.message : "That password didn't work. Please try again.";
@@ -200,22 +206,34 @@
     inp.focus();
   }
 
+  function showMessage(box, text) {
+    var w = el("div", "upc-dash");
+    w.appendChild(el("p", "d-card", text));
+    box.textContent = "";
+    box.appendChild(w);
+  }
+
   function run() {
     var boxes = document.querySelectorAll("[data-upc-dash]");
     if (!boxes.length || !window.fetch) return;
     injectStyles();
-    fetch(SRC + (SRC.indexOf("?") < 0 ? "?" : "&") + "v=" + Math.floor(Date.now() / 300000), {cache: "no-store"})
+    // One dashboard per page; any extra placeholder says so instead of staying blank.
+    for (var i = 1; i < boxes.length; i++) showMessage(boxes[i], "The dashboard is shown once on this page.");
+    var ctl = window.AbortController ? new AbortController() : null;
+    var timer = ctl ? setTimeout(function () { ctl.abort(); }, 20000) : null;
+    fetch(SRC + (SRC.indexOf("?") < 0 ? "?" : "&") + "v=" + Math.floor(Date.now() / 300000),
+          ctl ? {cache: "no-store", signal: ctl.signal} : {cache: "no-store"})
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(function (blob) {
-        if (!blob || blob.v !== 1 || !blob.salt || !blob.iv || !blob.ct || !(blob.iter >= 100000)) throw new Error("bad file");
+        if (timer) clearTimeout(timer);
+        if (!blob || blob.v !== 1 || !blob.salt || !blob.iv || !blob.ct ||
+            !(blob.iter >= 100000 && blob.iter <= 5000000)) throw new Error("bad file");
         showLock(boxes[0], blob);
       })
       .catch(function (e) {
+        if (timer) clearTimeout(timer);
         if (window.console) console.warn("upc-dash:", e);
-        var w = el("div", "upc-dash");
-        w.appendChild(el("p", "d-card", "The dashboard isn't available right now. Please try again later."));
-        boxes[0].textContent = "";
-        boxes[0].appendChild(w);
+        showMessage(boxes[0], "The dashboard isn't available right now. Please try again later.");
       });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);

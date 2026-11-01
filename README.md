@@ -13,6 +13,6 @@ A private overview for church leaders on a hidden, password-protected
 Squarespace page. `upc-dashboard.js` asks for the leaders' password and
 decrypts `dashboard.enc.json` in the browser (AES-256-GCM, key from the
 password with PBKDF2-SHA256, 600,000 rounds). The data file is unreadable
-without the password, and the password is never stored. The data is built and
+without the password, and the site never stores the password (a leader's own browser may offer to save it on their device). The data is built and
 encrypted on the church PC by `build_dashboard.py`, which is not kept here.
 No member names, prayer requests, or individual giving go on the dashboard.
