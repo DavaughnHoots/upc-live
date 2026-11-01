@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-25",
+  "updated": "2026-11-01",
   "service_times": [
     {
       "label": "Sunday Worship",
@@ -36,32 +36,30 @@
     }
   ],
   "this_week": {
-    "date": "2026-10-25",
-    "title": "Pastor Appreciation Sunday",
+    "date": "2026-11-01",
+    "title": "Communion Sunday",
     "scripture": [
-      "Matthew 6:25-34",
-      "Psalm 118:24"
+      "James 2:1–4",
+      "James 2:8-9"
     ],
     "announcements": [
       {
-        "text": "Join the UPC Family for daily Bible reading and reflections on the church Facebook page.",
-        "expires": "2026-10-31"
+        "text": "Join the UPC family for daily Bible reading on the church Facebook page.",
+        "expires": "2026-11-07"
       },
       {
-        "text": "The 2026 Youth Advent workshops begin Saturday, December 5, 2026, at 11:00 AM in the Hansen Room.",
-        "date": "2026-12-05",
-        "expires": "2026-12-05"
+        "text": "Parents, sign your children up for the 2026 Youth Advent workshops that will run on four consecutive Saturdays in December.",
+        "expires": "2026-11-07"
+      },
+      {
+        "text": "The Adult Advent study will begin Sunday, November 29, at 7:30 PM via Zoom.",
+        "date": "2026-11-29",
+        "expires": "2026-11-29"
       }
     ],
     "bulletin_url": null
   },
   "events": [
-    {
-      "title": "Reformation Sunday",
-      "date": "2026-10-25",
-      "time": "11:00 am",
-      "where": "Sanctuary and livestream"
-    },
     {
       "title": "Daylight Saving Time ends",
       "date": "2026-11-01",
