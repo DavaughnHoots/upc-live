@@ -52,7 +52,7 @@
       ".upc-dash h2{font-family:'Crimson Pro',Georgia,serif;font-weight:400;font-size:2.1rem;line-height:1.1;margin:0 0 .3em}",
       ".upc-dash h3{font-family:'Crimson Pro',Georgia,serif;font-weight:500;font-size:1.6rem;margin:0 0 .5em}",
       ".upc-dash .d-card{background:#fff;border-radius:18px;padding:1.3rem 1.4rem;box-shadow:0 1px 4px rgba(0,0,0,.08);margin:0 0 1.1rem}",
-      ".upc-dash .d-sub{font-size:1rem;color:#333;margin:0 0 1rem}",
+      ".upc-dash .d-sub{font-size:.95em;color:#333;margin:0 0 1rem}",
       ".upc-dash label{display:block;font-weight:600;margin:0 0 .4rem}",
       ".upc-dash input{width:100%;font-size:1.2rem;padding:.75rem .9rem;border:2px solid #555;border-radius:12px}",
       ".upc-dash button{display:block;width:100%;margin-top:.9rem;background:#0033a0;color:#fff;border:0;border-radius:300px;padding:.85rem 1rem;font-size:1.15rem;font-weight:600;cursor:pointer}",
@@ -60,13 +60,13 @@
       ".upc-dash .d-err{color:#a40000;font-weight:600;margin-top:.7rem}",
       ".upc-dash .d-row{border-top:1px solid #ddd;padding:.65rem 0}",
       ".upc-dash .d-row:first-of-type{border-top:0}",
-      ".upc-dash .d-tag{display:inline-block;font-size:.85rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-radius:8px;padding:.15rem .55rem;margin-right:.5rem}",
+      ".upc-dash .d-tag{display:inline-block;font-size:.9em;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-radius:8px;padding:.15rem .55rem;margin-right:.5rem}",
       ".upc-dash .ok{background:#d9f2df;color:#0b5a1e}",
       ".upc-dash .due{background:#fff1c7;color:#6b4d00}",
       ".upc-dash .behind{background:#fbd5d5;color:#8a0000}",
       ".upc-dash .d-big{font-size:2rem;font-weight:700;line-height:1.1}",
-      ".upc-dash .d-muted{color:#444;font-size:1rem}",
-      ".upc-dash .d-stamp{font-size:.95rem;color:#444;margin:.4rem 0 1.2rem}"
+      ".upc-dash .d-muted{color:#333;font-size:.95em}",
+      ".upc-dash .d-stamp{font-size:.95em;color:#333;margin:.4rem 0 1.2rem}"
     ].join("\n");
     var s = document.createElement("style");
     s.id = "upc-dash-style";
