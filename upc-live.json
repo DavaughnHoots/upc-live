@@ -68,6 +68,10 @@
   ],
   "newsletters": [
     {
+      "label": "November 2026",
+      "url": "newsletters/2026-11-News.pdf"
+    },
+    {
       "label": "October 2026",
       "url": "newsletters/2026-10-News.pdf"
     },
