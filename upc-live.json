@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-01",
+  "updated": "2026-11-08",
   "service_times": [
     {
       "label": "Sunday Worship",
@@ -36,36 +36,27 @@
     }
   ],
   "this_week": {
-    "date": "2026-11-01",
-    "title": "Communion Sunday",
+    "date": "2026-11-08",
+    "title": "Youth Sunday",
     "scripture": [
-      "James 2:1–4",
-      "James 2:8-9"
+      "Romans 13:8-10",
+      "Matthew 7:12"
     ],
     "announcements": [
       {
-        "text": "Join the UPC family for daily Bible reading on the church Facebook page.",
-        "expires": "2026-11-07"
-      },
-      {
-        "text": "Parents, sign your children up for the 2026 Youth Advent workshops that will run on four consecutive Saturdays in December.",
-        "expires": "2026-11-07"
-      },
-      {
-        "text": "The Adult Advent study will begin Sunday, November 29, at 7:30 PM via Zoom.",
+        "text": "Adult Advent Study begins on Sunday, November 29, at 7:30 pm, via Zoom.",
         "date": "2026-11-29",
         "expires": "2026-11-29"
+      },
+      {
+        "text": "On Saturday, December 5, 2026, at 11:00 am, the 2026 Youth Advent Workshops begin. There are ten spots for youth ages 6 to 16.",
+        "date": "2026-12-05",
+        "expires": "2026-12-05"
       }
     ],
     "bulletin_url": null
   },
-  "events": [
-    {
-      "title": "Daylight Saving Time ends",
-      "date": "2026-11-01",
-      "details": "Turn your clocks back one hour Saturday night. All Saints Day and Communion Sunday."
-    }
-  ],
+  "events": [],
   "newsletters": [
     {
       "label": "November 2026",
