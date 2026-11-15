@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-08",
+  "updated": "2026-11-15",
   "service_times": [
     {
       "label": "Sunday Worship",
@@ -36,20 +36,24 @@
     }
   ],
   "this_week": {
-    "date": "2026-11-08",
-    "title": "Youth Sunday",
+    "date": "2026-11-15",
+    "title": null,
     "scripture": [
-      "Romans 13:8-10",
-      "Matthew 7:12"
+      "1 Thessalonians 5:1-5",
+      "1 Thessalonians 5:6-11"
     ],
     "announcements": [
       {
-        "text": "Adult Advent Study begins on Sunday, November 29, at 7:30 pm, via Zoom.",
+        "text": "Join the UPC family for daily Bible reflection on our church Facebook page.",
+        "expires": "2026-11-21"
+      },
+      {
+        "text": "The 2026 Adult Advent Study will begin on Sunday, November 29, at 7:30 PM via Zoom.",
         "date": "2026-11-29",
         "expires": "2026-11-29"
       },
       {
-        "text": "On Saturday, December 5, 2026, at 11:00 am, the 2026 Youth Advent Workshops begin. There are ten spots for youth ages 6 to 16.",
+        "text": "The 2026 Youth Advent workshops begin Saturday, December 5 at 11:00 AM.",
         "date": "2026-12-05",
         "expires": "2026-12-05"
       }
