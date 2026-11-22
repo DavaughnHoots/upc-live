@@ -1,0 +1,153 @@
+{
+  "version": 1,
+  "label": "2026 Adult Advent Study",
+  "title": "Walking in the Way of Peace",
+  "author": "Written by Pastor Allegra Hoots",
+  "prayer": "May God grant us the grace to practice the peace for which we pray.",
+  "credit": "Scripture quotations are from the New Revised Standard Version Bible, copyright 1989 National Council of the Churches of Christ in the United States of America. Used by permission. All rights reserved worldwide.",
+  "weeks": [
+    {
+      "id": "w1",
+      "number": "Week One",
+      "title": "What Kind of Peace Are We Waiting For?",
+      "when": "Sunday, November 29, 7:30 PM",
+      "steps": [
+        {
+          "title": "Welcome",
+          "blocks": [
+            {"t": "big", "text": "What kind of peace are we waiting for?"},
+            {"t": "p", "text": "This week we explore the peace announced at the birth of Jesus."},
+            {"t": "p", "text": "We ask what that peace means for those who follow the Prince of Peace."},
+            {"t": "howto"}
+          ]
+        },
+        {
+          "title": "Our Scripture",
+          "label": "Luke 2:8-14",
+          "blocks": [
+            {"t": "verse", "text": "Glory to God in the highest heaven, and on earth peace…", "ref": "Luke 2:14"},
+            {"t": "read", "ref": "Luke 2:8-14", "q": "Luke 2:8-14"},
+            {"t": "p", "text": "Take your time. Read it slowly, then tap Next."}
+          ]
+        },
+        {
+          "title": "Opening Reflection",
+          "blocks": [
+            {"t": "big", "text": "When you hear the word “peace,” what comes to mind?"},
+            {"t": "note", "id": "w1-opening", "prompt": "Write a few words, or just think about it."}
+          ]
+        },
+        {
+          "title": "Peace Begins With God",
+          "label": "Part 1",
+          "blocks": [
+            {"t": "verse", "text": "Therefore, since we are justified by faith, we have peace with God through our Lord Jesus Christ.", "ref": "Romans 5:1"},
+            {"t": "read", "ref": "Romans 5:1", "q": "Romans 5:1"},
+            {"t": "key", "title": "Key Thought", "text": "Christian peace begins not with our efforts, but with the grace of God. Through Jesus Christ, God reconciles, redeems, and restores. Walking in the way of peace is our response to grace, not our attempt to earn it."}
+          ]
+        },
+        {
+          "title": "Talk About It",
+          "label": "Part 1",
+          "blocks": [
+            {"t": "p", "text": "Tap a question to think about it and write your answer."},
+            {"t": "questions", "items": [
+              {"id": "w1-d1", "q": "What does it mean to have peace with God?"},
+              {"id": "w1-d2", "q": "How is peace with God different from simply feeling peaceful?"},
+              {"id": "w1-d3", "q": "Why must our understanding of peace begin with God’s grace?"}
+            ]}
+          ]
+        },
+        {
+          "title": "The Peace of Christ Is Different",
+          "label": "Part 2",
+          "blocks": [
+            {"t": "verse", "text": "Peace I leave with you; my peace I give to you. I do not give to you as the world gives.", "ref": "John 14:27"},
+            {"t": "read", "ref": "John 14:27", "q": "John 14:27"}
+          ]
+        },
+        {
+          "title": "Something Is Missing",
+          "label": "Part 2",
+          "blocks": [
+            {"t": "p", "text": "Each card looks like peace. Tap it to see what is missing."},
+            {"t": "reveal", "items": [
+              {"front": "Silence", "back": "without reconciliation"},
+              {"front": "Order", "back": "without justice"},
+              {"front": "Politeness", "back": "without love"},
+              {"front": "An absence of fighting", "back": "without genuine peace"}
+            ]}
+          ]
+        },
+        {
+          "title": "Look Inward",
+          "label": "Part 2",
+          "blocks": [
+            {"t": "big", "text": "Can I claim to possess the peace of Christ while consistently creating turmoil for everybody around me?"},
+            {"t": "note", "id": "w1-turmoil", "prompt": "Your private thoughts."}
+          ]
+        },
+        {
+          "title": "Peace Is Something We Practice",
+          "label": "Part 3",
+          "blocks": [
+            {"t": "read", "ref": "Isaiah 9:6-7", "q": "Isaiah 9:6-7"},
+            {"t": "p", "text": "Jesus Christ is the Prince of Peace. God gives us peace through Christ. Our peaceful living becomes a response to God’s grace."},
+            {"t": "p", "text": "Instead of beginning with “Why isn’t the world more peaceful?” what happens when we first ask:"},
+            {"t": "prayer", "text": "Lord, where do You need to make me more peaceful?"}
+          ]
+        },
+        {
+          "title": "Circles of Peace",
+          "blocks": [
+            {"t": "p", "text": "Where is God calling me to practice peace? Tap each circle."},
+            {"t": "circles", "items": [
+              {"id": "w1-c1", "name": "Peace With God", "q": "What do I need to entrust more fully to God?"},
+              {"id": "w1-c2", "name": "Peace Within Myself", "q": "What fear, guilt, resentment, anxiety, or burden do I need to bring honestly before God?"},
+              {"id": "w1-c3", "name": "Peace With Others", "q": "Where might God be calling me to listen, forgive, apologize, speak truthfully, or stop contributing to unnecessary conflict?"},
+              {"id": "w1-c4", "name": "Peace in the World", "q": "Where do I see division, injustice, suffering, or hostility that calls for faithful Christian concern?"}
+            ]},
+            {"t": "small", "text": "You do not have to share what you write. This is between you and God unless you choose otherwise."}
+          ]
+        },
+        {
+          "title": "Walking It Out",
+          "label": "This Week’s Advent Practice",
+          "blocks": [
+            {"t": "p", "text": "Choose one intentional act of peace this week."},
+            {"t": "choose", "id": "w1-practice", "options": [
+              "Listen before responding",
+              "Let go of an unnecessary argument",
+              "Pray for someone with whom I disagree",
+              "Offer an apology",
+              "Forgive",
+              "Speak a needed word with kindness",
+              "Encourage someone who is struggling"
+            ], "other": "Take another step toward peace"}
+          ]
+        },
+        {
+          "title": "At the End of the Week",
+          "blocks": [
+            {"t": "mychoice", "id": "w1-practice"},
+            {"t": "big", "text": "What did practicing peace require of me?"},
+            {"t": "note", "id": "w1-end", "prompt": "Come back later this week and write here."},
+            {"t": "key", "title": "Remember", "text": "The question is not, Did the other person change? The question is, Was I faithful to Christ?"}
+          ]
+        },
+        {
+          "title": "Closing",
+          "blocks": [
+            {"t": "verse", "text": "Glory to God in the highest heaven, and on earth peace…", "ref": "Luke 2:14"},
+            {"t": "prayer", "text": "May God grant us the grace to practice the peace for which we pray."},
+            {"t": "p", "text": "Amen."},
+            {"t": "end"}
+          ]
+        }
+      ]
+    },
+    {"id": "w2", "number": "Week Two", "when": "Sunday, December 6, 7:30 PM", "steps": []},
+    {"id": "w3", "number": "Week Three", "when": "Sunday, December 13, 7:30 PM", "steps": []},
+    {"id": "w4", "number": "Week Four", "when": "Sunday, December 20, 7:30 PM", "steps": []}
+  ]
+}
