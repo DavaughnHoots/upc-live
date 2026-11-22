@@ -42,12 +42,10 @@
       }
     } catch (e) { /* private mode or blocked storage: work without saving */ }
   }
-  var saveTimer = null;
+  // Returns true only when the write really reached the browser's storage.
   function save() {
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(function () {
-      try { window.localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
-    }, 250);
+    try { window.localStorage.setItem(KEY, JSON.stringify(state)); return true; }
+    catch (e) { return false; }
   }
 
   // ------------------------------------------------------------ helpers
@@ -136,7 +134,7 @@
       ".upc-adv .a-notes-list h3{font-size:1em;font-weight:800;margin:1em 0 .2em}",
       ".upc-adv .a-notes-list p{white-space:pre-wrap;margin:0 0 .4em}",
       "@media (max-width:480px){.upc-adv{padding:1rem .75rem 1.25rem}.upc-adv h2{font-size:1.8em}}",
-      "@media print{body *{visibility:hidden!important}.upc-adv-print,.upc-adv-print *{visibility:visible!important}.upc-adv-print{position:absolute;left:0;top:0;width:100%}.upc-adv-print button{display:none!important}}"
+      "@media print{body:has(.upc-adv-print) *{visibility:hidden!important}body:has(.upc-adv-print) .upc-adv-print,body:has(.upc-adv-print) .upc-adv-print *{visibility:visible!important}.upc-adv-print{position:absolute;left:0;top:0;width:100%}.upc-adv-print button{display:none!important}}"
     ].join("\n");
     var s = document.createElement("style");
     s.id = "upc-adv-style";
@@ -179,7 +177,7 @@
       }
     }
     if (h === "advent-notes") return this.renderNotes();
-    if (h.indexOf("advent") === 0 || !this.view) return this.renderHome();
+    if (h === "" || h.indexOf("advent") === 0 || !this.view) return this.renderHome();
   };
 
   App.prototype.frame = function (view) {
@@ -316,10 +314,14 @@
     var t = null;
     ta.addEventListener("input", function () {
       state.notes[id] = ta.value;
-      save();
+      var ok = save();
       clearTimeout(t);
       msg.textContent = "";
-      t = setTimeout(function () { msg.textContent = "✓ Saved on this device only"; }, 600);
+      msg.style.color = ok ? "" : "#8a0000";
+      t = setTimeout(function () {
+        msg.textContent = ok ? "✓ Saved on this device only"
+          : "This device could not save your notes. They will be lost when you leave this page.";
+      }, 600);
     });
     wrap.appendChild(ta);
     wrap.appendChild(msg);
