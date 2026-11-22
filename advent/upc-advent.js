@@ -22,7 +22,8 @@
   var SRC = (me && me.getAttribute("data-src")) ||
             (me && me.src ? me.src.replace(/upc-advent\.js(\?.*)?$/, "advent-2026.json") : "advent-2026.json");
   var KEY = "upc-advent-2026";
-  var BIBLE = "https://www.biblegateway.com/passage/?version=NRSVUE&search=";
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+  var activeMic = null;
   var canSpeak = "speechSynthesis" in window && typeof SpeechSynthesisUtterance === "function";
 
   // ------------------------------------------------------------ storage
@@ -94,6 +95,18 @@
       ".upc-adv .a-verse{font-family:" + serif + ";font-size:1.45em;line-height:1.3;margin:0 0 .4em;padding:.2em 0 .2em .8em;border-left:8px solid #0033a0}",
       ".upc-adv .a-ref{font-weight:700;margin:0 0 1em .9em;color:#222}",
       ".upc-adv .a-read{display:flex;align-items:center;justify-content:center;gap:.5em;width:100%;min-height:64px;background:#eef2fb;color:#0033a0;border:3px solid #0033a0;border-radius:16px;font-weight:700;padding:.5rem 1rem;margin:0 0 1.1em;text-decoration:none;text-align:center}",
+      ".upc-adv .a-passage{font-family:" + serif + ";font-size:1.25em;line-height:1.45;background:#f7f9fe;border:3px solid #0033a0;border-top:0;border-radius:0 0 16px 16px;padding:.6em .9em .2em;margin:-1.4em 0 1.1em}",
+      ".upc-adv .a-passage .a-pref{font-family:inherit;font-weight:700;font-size:.8em;color:#0033a0;margin:.3em 0 .3em}",
+      ".upc-adv .a-passage sup{font-family:Helvetica,Arial,sans-serif;font-size:.6em;font-weight:700;color:#0033a0;margin-right:.2em}",
+      ".upc-adv .a-exp{margin:0 0 1em}",
+      ".upc-adv .a-exp-btn{display:block;width:100%;min-height:68px;text-align:left;background:#fff6dc;color:#000;border:3px solid #c99a00;border-radius:16px;padding:.6rem 1rem}",
+      ".upc-adv .a-exp-btn[aria-expanded=true]{border-radius:16px 16px 0 0}",
+      ".upc-adv .a-exp-title{display:block;font-weight:800}",
+      ".upc-adv .a-exp-btn .a-hint{display:block;font-size:.8em;font-weight:700;color:#6b4d00}",
+      ".upc-adv .a-exp-body{background:#fff6dc;border:3px solid #c99a00;border-top:0;border-radius:0 0 16px 16px;padding:.2em 1em .8em}",
+      ".upc-adv .a-exp-body p{margin:0}",
+      ".upc-adv .a-mic{display:block;width:100%;min-height:60px;margin-top:.5rem;background:#fff;color:#0033a0;border:3px solid #0033a0;border-radius:14px;font-weight:700;padding:.4rem .8rem}",
+      ".upc-adv .a-mic.on{background:#8a0000;border-color:#8a0000;color:#fff}",
       ".upc-adv .a-key{background:#fff6dc;border:3px solid #c99a00;border-radius:16px;padding:.9em 1em;margin:0 0 1em}",
       ".upc-adv .a-key h3,.upc-adv .a-circle-q h3{font-size:1em;font-weight:800;margin:0 0 .3em;color:#000}",
       ".upc-adv .a-key p{margin:0}",
@@ -182,6 +195,7 @@
 
   App.prototype.frame = function (view) {
     this.stopSpeaking();
+    if (activeMic) activeMic();
     this.view = view;
     this.root.textContent = "";
     this.root.className = "upc-adv" + (state.big ? " big" : "");
@@ -324,8 +338,77 @@
       }, 600);
     });
     wrap.appendChild(ta);
+    if (SR) wrap.appendChild(this.micButton(ta));
     wrap.appendChild(msg);
     return wrap;
+  };
+
+  // Tap-to-open box, used for "How this works", Key Thought and Remember.
+  App.prototype.expander = function (title, paras) {
+    var box = el("div", "a-exp");
+    var b = button("a-exp-btn", null);
+    b.setAttribute("aria-expanded", "false");
+    b.appendChild(el("span", "a-exp-title", title));
+    var hint = el("span", "a-hint", "Tap to open ▾");
+    b.appendChild(hint);
+    var body = el("div", "a-exp-body");
+    body.hidden = true;
+    paras.forEach(function (t) { body.appendChild(el("p", null, t)); });
+    b.addEventListener("click", function () {
+      var open = b.getAttribute("aria-expanded") !== "true";
+      b.setAttribute("aria-expanded", open ? "true" : "false");
+      body.hidden = !open;
+      hint.textContent = open ? "Tap to close ▴" : "Tap to open ▾";
+    });
+    box.appendChild(b);
+    box.appendChild(body);
+    return box;
+  };
+
+  // Speak instead of typing (browser speech recognition, where offered).
+  App.prototype.micButton = function (ta) {
+    var idle = "🎤 Tap to speak instead of typing";
+    var mb = button("a-mic", idle);
+    mb.setAttribute("data-noread", "1");
+    var rec = null;
+    function stop() { if (rec) { try { rec.stop(); } catch (e) {} } }
+    mb.addEventListener("click", function () {
+      if (rec) { stop(); return; }
+      if (activeMic) activeMic();
+      try { rec = new SR(); } catch (e) { mb.textContent = "Speaking is not available on this device."; return; }
+      rec.lang = "en-US";
+      rec.interimResults = true;
+      rec.continuous = true;
+      var base = ta.value ? ta.value.replace(/\s*$/, " ") : "";
+      var finals = "";
+      rec.onresult = function (ev) {
+        var interim = "";
+        for (var i = ev.resultIndex; i < ev.results.length; i++) {
+          var r = ev.results[i];
+          if (r.isFinal) finals += r[0].transcript.replace(/^\s+/, "") + " ";
+          else interim += r[0].transcript;
+        }
+        ta.value = base + finals + interim;
+        ta.dispatchEvent(new Event("input"));
+      };
+      rec.onerror = function (ev) {
+        if (ev && (ev.error === "not-allowed" || ev.error === "service-not-allowed")) {
+          mb.textContent = "Please allow the microphone, then tap again.";
+        }
+      };
+      rec.onend = function () {
+        rec = null; activeMic = null;
+        ta.value = (base + finals).replace(/\s+$/, "");
+        ta.dispatchEvent(new Event("input"));
+        if (mb.textContent.indexOf("allow") < 0) mb.textContent = idle;
+        mb.classList.remove("on");
+      };
+      try { rec.start(); } catch (e) { rec = null; return; }
+      activeMic = stop;
+      mb.textContent = "■ Listening… tap when finished";
+      mb.classList.add("on");
+    });
+    return mb;
   };
 
   App.prototype.block = function (b, w) {
@@ -341,11 +424,33 @@
         return f;
       }
       case "read": {
-        var a = el("a", "a-read", "📖 Read " + str(b.ref) + " in the Bible");
-        a.href = BIBLE + encodeURIComponent(str(b.q || b.ref));
-        a.setAttribute("data-noread", "1");
-        return a;
+        var rd = el("div");
+        var openLabel = "📖 Read " + str(b.ref) + " in the Bible";
+        var rb = button("a-read", openLabel);
+        rb.setAttribute("aria-expanded", "false");
+        rb.setAttribute("data-noread", "1");
+        var pass = el("div", "a-passage");
+        pass.hidden = true;
+        pass.appendChild(el("p", "a-pref", str(b.ref)));
+        var para = el("p");
+        (b.verses || []).forEach(function (v) {
+          var sup = el("sup", null, str(v.v));
+          sup.setAttribute("aria-hidden", "true");
+          para.appendChild(sup);
+          para.appendChild(document.createTextNode(str(v.text) + " "));
+        });
+        pass.appendChild(para);
+        rb.addEventListener("click", function () {
+          var open = rb.getAttribute("aria-expanded") !== "true";
+          rb.setAttribute("aria-expanded", open ? "true" : "false");
+          pass.hidden = !open;
+          rb.textContent = open ? "Close " + str(b.ref) : openLabel;
+        });
+        rd.appendChild(rb);
+        rd.appendChild(pass);
+        return rd;
       }
+      case "expand": return this.expander(str(b.title), [str(b.text)]);
       case "key": {
         var k = el("div", "a-key");
         k.appendChild(el("h3", null, str(b.title)));
@@ -354,13 +459,7 @@
       }
       case "prayer": return el("p", "a-prayer", str(b.text));
       case "note": return this.noteBox(b.id, b.prompt, "My notes");
-      case "howto": {
-        var hw = el("div", "a-key");
-        hw.appendChild(el("h3", null, "How this works"));
-        hw.appendChild(el("p", null, "Tap the big blue Next button to go on. Tap Back to go back."));
-        hw.appendChild(el("p", null, "Anything you write stays on your own phone or computer. No one else sees it."));
-        return hw;
-      }
+      case "howto": return this.expander("How this works", ["Tap the blue Next button to go on, or Back to go back."]);
       case "reveal": {
         var rv = el("div");
         (b.items || []).forEach(function (it) {
@@ -479,8 +578,6 @@
           otherInput.addEventListener("input", function () { state.other[b.id] = otherInput.value; save(); });
           ch.appendChild(otherInput);
         }
-        var tip = el("p", "a-small", "Your choice is saved on this device. We will remind you of it at the end of this week's study.");
-        ch.appendChild(tip);
         mark();
         return ch;
       }
