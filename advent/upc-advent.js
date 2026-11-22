@@ -398,6 +398,7 @@
       };
       rec.onend = function () {
         rec = null; activeMic = null;
+        ta.readOnly = false;
         ta.value = (base + finals).replace(/\s+$/, "");
         ta.dispatchEvent(new Event("input"));
         if (mb.textContent.indexOf("allow") < 0) mb.textContent = idle;
@@ -405,6 +406,7 @@
       };
       try { rec.start(); } catch (e) { rec = null; return; }
       activeMic = stop;
+      ta.readOnly = true;   // typing while listening would be overwritten
       mb.textContent = "■ Listening… tap when finished";
       mb.classList.add("on");
     });
@@ -646,7 +648,7 @@
     var h = el("h2", null, "My Notes");
     body.appendChild(el("p", "a-label", str(this.data.title)));
     body.appendChild(h);
-    body.appendChild(el("p", "a-small", "These notes are saved only on this phone or computer. No one else can see them."));
+    body.appendChild(el("p", "a-small", "These notes are saved only on this phone or computer."));
     var list = el("div", "a-notes-list");
     var any = false;
     this.weeks.forEach(function (w) {
@@ -763,7 +765,10 @@
     var url = SRC + (SRC.indexOf("?") < 0 ? "?" : "&") + "v=" + Math.floor(Date.now() / 600000);
     fetch(url, { cache: "no-cache" })
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-      .then(function (d) { if (done) return; done = true; clearTimeout(timer); start(root, d); })
+      .then(function (d) {
+        if (done) return; done = true; clearTimeout(timer);
+        try { start(root, d); } catch (e) { showError(root); }
+      })
       .catch(function () { if (done) return; done = true; clearTimeout(timer); showError(root); });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);

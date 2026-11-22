@@ -30,4 +30,6 @@ An interactive, step-by-step version of the 2026 Adult Advent Study
 
 The words live in `advent-2026.json`. To add a week, fill in that week's
 `steps` list; a week with no steps shows as "Coming soon". Notes and choices
-that readers write stay only in their own browser. Nothing is sent anywhere.
+that readers write stay only in their own browser. The only thing that leaves
+the device is speech when a reader taps the microphone button: the phone or
+browser sends it to its own speech service (Google or Apple) to turn it into text.
