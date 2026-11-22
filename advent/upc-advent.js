@@ -638,25 +638,36 @@
     return d && typeof d === "object" && Array.isArray(d.weeks) && d.weeks.length > 0;
   }
   function start(root, data) {
-    if (!validate(data)) return;
+    if (!validate(data)) throw new Error("bad data");
     injectStyles();
     load();
+    // Keep notes written in another tab of this browser.
+    window.addEventListener("storage", function (e) { if (e.key === KEY) load(); });
     var app = new App(root, data);
     app.route();
+  }
+  function showError(root) {
+    root.textContent = "";
+    var p = document.createElement("p");
+    p.style.cssText = "font-size:22px;line-height:1.5;color:#000;background:#fff6dc;border:3px solid #c99a00;border-radius:16px;padding:1em;margin:0";
+    p.textContent = "The Advent study did not load. Please refresh this page. If it still does not appear, call the church office at (908) 756-2666.";
+    root.appendChild(p);
   }
   function boot() {
     var root = document.querySelector("[data-upc-advent]");
     if (!root) return;
     var inline = document.querySelector("script[type='application/json'][data-upc-advent-data]");
     if (inline) {
-      try { start(root, JSON.parse(inline.textContent)); } catch (e) {}
+      try { start(root, JSON.parse(inline.textContent)); } catch (e) { showError(root); }
       return;
     }
+    var done = false;
+    var timer = setTimeout(function () { if (!done) { done = true; showError(root); } }, 20000);
     var url = SRC + (SRC.indexOf("?") < 0 ? "?" : "&") + "v=" + Math.floor(Date.now() / 600000);
     fetch(url, { cache: "no-cache" })
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-      .then(function (d) { start(root, d); })
-      .catch(function () { /* keep the fallback text in the code block */ });
+      .then(function (d) { if (done) return; done = true; clearTimeout(timer); start(root, d); })
+      .catch(function () { if (done) return; done = true; clearTimeout(timer); showError(root); });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
