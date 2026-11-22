@@ -25,7 +25,7 @@ An interactive, step-by-step version of the 2026 Adult Advent Study
 
 ```html
 <div data-upc-advent>Loading the Advent study…</div>
-<script src="https://cdn.jsdelivr.net/gh/DavaughnHoots/upc-live@main/advent/upc-advent.js"></script>
+<script src="https://davaughnhoots.github.io/upc-live/advent/upc-advent.js"></script>
 ```
 
 The words live in `advent-2026.json`. To add a week, fill in that week's
