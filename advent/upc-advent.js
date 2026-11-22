@@ -397,7 +397,8 @@
         }
       };
       rec.onend = function () {
-        rec = null; activeMic = null;
+        rec = null;
+        if (activeMic === stop) activeMic = null;   // a newer mic may already own it
         ta.readOnly = false;
         ta.value = (base + finals).replace(/\s+$/, "");
         ta.dispatchEvent(new Event("input"));
