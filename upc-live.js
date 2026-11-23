@@ -2,6 +2,7 @@
  *
  * Fills any of these containers found on the page:
  *   <div data-upc-live="this-week">  fallback HTML  </div>
+ *     (add data-no-live-button to leave out the "Watch the 11:00 am service live" button)
  *   <div data-upc-live="newsletters"> fallback HTML </div>
  *   <div data-upc-live="events">      fallback HTML </div>
  *
@@ -117,7 +118,8 @@
     }
     var buttons = el("div");
     var sundayTimes = (data.service_times || [])[0];
-    if (sundayTimes && sundayTimes.link) buttons.appendChild(link("Watch the 11:00 am service live", sundayTimes.link.url, "upc-btn"));
+    // data-no-live-button on the box hides this button (the page already has a Watch Live button).
+    if (sundayTimes && sundayTimes.link && !box.hasAttribute("data-no-live-button")) buttons.appendChild(link("Watch the 11:00 am service live", sundayTimes.link.url, "upc-btn"));
     if (matches && tw.bulletin_url) buttons.appendChild(link("This week's bulletin", tw.bulletin_url, "upc-btn"));
     if (buttons.childNodes.length) wrap.appendChild(buttons);
 
