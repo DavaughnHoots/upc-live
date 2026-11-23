@@ -37,11 +37,6 @@
           "label": "Luke 2:8-14",
           "blocks": [
             {
-              "t": "verse",
-              "text": "Glory to God in the highest heaven, and on earth peace…",
-              "ref": "Luke 2:14"
-            },
-            {
               "t": "read",
               "ref": "Luke 2:8-14",
               "verses": [

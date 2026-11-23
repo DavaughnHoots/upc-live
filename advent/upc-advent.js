@@ -86,7 +86,10 @@
       ".upc-adv .a-progress{font-size:.85em;font-weight:600;color:#222;margin:0 0 .3rem}",
       ".upc-adv .a-bar{height:12px;background:#dfe5f2;border-radius:6px;overflow:hidden;margin:0 0 1.1rem}",
       ".upc-adv .a-bar span{display:block;height:100%;background:#0033a0;border-radius:6px}",
-      ".upc-adv .a-nav{display:flex;gap:.7rem;margin-top:1.6rem}",
+      ".upc-adv .a-nav{display:flex;gap:.7rem;margin-top:1.6rem;position:-webkit-sticky;position:sticky;bottom:0;z-index:5;background:#fff;padding:.7rem 0 calc(.7rem + env(safe-area-inset-bottom,0px));box-shadow:0 -10px 10px -10px rgba(0,0,0,.35)}",
+      ".upc-adv .a-prayer-btn{display:block;width:100%;border:0;cursor:pointer}",
+      ".upc-adv .a-prayer-text{display:block}",
+      ".upc-adv .a-prayer-go{display:inline-block;margin-top:.7em;font-family:Helvetica,Arial,sans-serif;font-style:normal;font-size:.62em;font-weight:700;background:#fff;color:#0033a0;border-radius:300px;padding:.45em 1.1em}",
       ".upc-adv .a-next{flex:2;min-height:72px;background:#0033a0;color:#fff;border:0;border-radius:300px;font-size:1.15em;font-weight:700;padding:.6rem 1rem}",
       ".upc-adv .a-back{flex:1;min-height:72px;background:#fff;color:#0033a0;border:3px solid #0033a0;border-radius:300px;font-size:1em;font-weight:700;padding:.6rem .8rem}",
       ".upc-adv .a-primary{display:block;width:100%;min-height:72px;background:#0033a0;color:#fff;border:0;border-radius:300px;font-size:1.1em;font-weight:700;padding:.6rem 1rem;margin:.6rem 0;text-align:center;text-decoration:none}",
@@ -246,13 +249,30 @@
     hero.appendChild(h);
     if (d.author) hero.appendChild(el("p", null, d.author));
     body.appendChild(hero);
-    if (d.prayer) body.appendChild(el("p", "a-prayer", d.prayer));
-
+    // The big blue prayer box is the main way in: people tap it naturally.
+    // It resumes the last step on this device, or starts the first open week.
     var last = state.last;
-    if (last && this.isOpen(this.weeks[this.weekIndex(last.w)]) && last.s > 1) {
+    var target = null, label = "";
+    if (last && this.isOpen(this.weeks[this.weekIndex(last.w)])) {
       var lw = this.weeks[this.weekIndex(last.w)];
-      body.appendChild(button("a-primary", "Continue where I left off: " + str(lw.number) + ", Step " + last.s,
-        function () { self.go("advent-" + last.w + "-" + last.s); }));
+      var ls = Math.min(Math.max(parseInt(last.s, 10) || 1, 1), lw.steps.length);
+      target = "advent-" + last.w + "-" + ls;
+      label = ls > 1 ? "Tap here to continue: " + str(lw.number) + ", Step " + ls + " ▸"
+                     : "Tap here to begin " + str(lw.number) + " ▸";
+    } else {
+      for (var i = 0; i < this.weeks.length; i++) {
+        if (this.isOpen(this.weeks[i])) {
+          target = "advent-" + this.weeks[i].id + "-1";
+          label = "Tap here to begin " + str(this.weeks[i].number) + " ▸";
+          break;
+        }
+      }
+    }
+    if (d.prayer || target) {
+      var pb = button("a-prayer a-prayer-btn", null, target ? function () { self.go(target); } : null);
+      if (d.prayer) pb.appendChild(el("span", "a-prayer-text", d.prayer));
+      if (target) pb.appendChild(el("span", "a-prayer-go", label));
+      body.appendChild(pb);
     }
 
     body.appendChild(el("p", "a-label", "Choose a week"));
@@ -371,7 +391,10 @@
     var mb = button("a-mic", idle);
     mb.setAttribute("data-noread", "1");
     var rec = null;
-    function stop() { if (rec) { try { rec.stop(); } catch (e) {} } }
+    var SILENCE_MS = 30000;   // stop by itself after 30 seconds of quiet
+    var quiet = null;
+    function stop() { clearTimeout(quiet); if (rec) { try { rec.stop(); } catch (e) {} } }
+    function armQuiet() { clearTimeout(quiet); quiet = setTimeout(stop, SILENCE_MS); }
     mb.addEventListener("click", function () {
       if (rec) { stop(); return; }
       if (activeMic) activeMic();
@@ -382,6 +405,7 @@
       var base = ta.value ? ta.value.replace(/\s*$/, " ") : "";
       var finals = "";
       rec.onresult = function (ev) {
+        armQuiet();
         var interim = "";
         for (var i = ev.resultIndex; i < ev.results.length; i++) {
           var r = ev.results[i];
@@ -397,6 +421,7 @@
         }
       };
       rec.onend = function () {
+        clearTimeout(quiet);
         rec = null;
         if (activeMic === stop) activeMic = null;   // a newer mic may already own it
         ta.readOnly = false;
@@ -406,7 +431,8 @@
         mb.classList.remove("on");
       };
       try { rec.start(); } catch (e) { rec = null; return; }
-      activeMic = stop;
+      activeMic = stop;   // Next, Back and All weeks also stop it; words heard so far are kept
+      armQuiet();
       ta.readOnly = true;   // typing while listening would be overwritten
       mb.textContent = "■ Listening… tap when finished";
       mb.classList.add("on");
@@ -701,8 +727,10 @@
     var walk = function (n) {
       if (n.nodeType === 3) { parts.push(n.nodeValue); return; }
       if (n.nodeType !== 1) return;
-      if (n.hidden || n.getAttribute("data-noread") || n.tagName === "TEXTAREA" || n.tagName === "INPUT" || n.tagName === "svg") return;
-      if (n.classList.contains("a-hint") || n.classList.contains("a-check") || n.classList.contains("a-saved")) return;
+      // Read closed Bible passages and tap-to-open boxes too.
+      var alwaysRead = n.classList.contains("a-passage") || n.classList.contains("a-exp-body");
+      if ((n.hidden && !alwaysRead) || n.getAttribute("data-noread") || n.tagName === "TEXTAREA" || n.tagName === "INPUT" || n.tagName === "svg") return;
+      if (n.classList.contains("a-hint") || n.classList.contains("a-check") || n.classList.contains("a-saved") || n.classList.contains("a-pref") || n.getAttribute("aria-hidden") === "true") return;
       for (var c = n.firstChild; c; c = c.nextSibling) walk(c);
       if (/^(P|H2|H3|BLOCKQUOTE|DIV|BUTTON|LABEL)$/.test(n.tagName)) parts.push(". ");
     };
